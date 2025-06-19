@@ -1,75 +1,67 @@
 $(document).ready(function () {
-  // Start reaction time on page load
-  let startTime = new Date().getTime();
 
   // Show/Hide password toggle
-  $('#togglePassword').on('change', function () {
-    const passwordInput = $('#password');
-    passwordInput.attr('type', this.checked ? 'text' : 'password');
+  $('.toggle-password').click(function () {
+    const passwordField = $('#password');
+    const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+    $(this).text(type === 'password' ? 'Show' : 'Hide');
   });
 
-  // Email validation regex
-  function isValidEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
+  // Allow only digits in phone number
+  $('#phone').on('input', function () {
+    this.value = this.value.replace(/\D/g, '');
+  });
 
-  // Password validation (min 8 chars, uppercase, lowercase, number)
-  function isValidPassword(password) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    return regex.test(password);
-  }
+  // Form validation
+  $('#registration-form').submit(function (e) {
+    e.preventDefault();
+    $('#message-box').html(''); // Clear old messages
 
-  // Display message helper
-  function showMessage(message, isError) {
-    const box = $('#messageBox');
-    box.removeClass('error success').addClass(isError ? 'error' : 'success');
-    box.text(message);
-    box.show();
-  }
-
-  // Validate form inputs
-  $('#userForm').on('submit', function (e) {
-    e.preventDefault(); // Prevent form submission
-
-    // Clear previous messages
-    $('#messageBox').hide();
-
+    const fullname = $('#fullname').val().trim();
     const email = $('#email').val().trim();
     const phone = $('#phone').val().trim();
     const password = $('#password').val();
+    const confirmPassword = $('#confirm-password').val();
 
-    // Validate required fields
-    if (!email || !phone || !password) {
-      showMessage('Please fill in all required fields.', true);
-      return;
+    let errors = [];
+
+    // Basic required validation
+    if (!fullname || !email || !phone || !password || !confirmPassword) {
+      errors.push("All fields are required.");
     }
 
-    // Validate email format
-    if (!isValidEmail(email)) {
-      showMessage('Please enter a valid email address.', true);
-      return;
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      errors.push("Invalid email format.");
     }
 
-    // Validate phone: exactly 10 digits
-    if (!/^\d{10}$/.test(phone)) {
-      showMessage('Phone number must be exactly 10 digits.', true);
-      return;
+    // Phone validation
+    if (phone && phone.length !== 10) {
+      errors.push("Phone number must be exactly 10 digits.");
     }
 
-    // Validate password format
-    if (!isValidPassword(password)) {
-      showMessage('Password must be at least 8 characters and include uppercase, lowercase, and a number.', true);
-      return;
+    // Password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (password && !passwordRegex.test(password)) {
+      errors.push("Password must be at least 8 characters, include upper/lowercase letters and a number.");
     }
 
-    // Calculate reaction time
-    const reactionTime = (new Date().getTime() - startTime) / 1000;
+    // Confirm password
+    if (password && confirmPassword && password !== confirmPassword) {
+      errors.push("Passwords do not match.");
+    }
 
-    showMessage(`Success! Form submitted in ${reactionTime.toFixed(2)} seconds.`, false);
-
-    // Optionally, reset form & timer
-    // this.reset();
-    // startTime = new Date().getTime();
+    // Display errors or success
+    if (errors.length > 0) {
+      errors.forEach(error => {
+        $('#message-box').append(`<div class="error-message">${error}</div>`);
+      });
+    } else {
+      $('#message-box').html(`<div class="success-message">Registration successful!</div>`);
+      $('#registration-form')[0].reset(); // Optional: reset form
+    }
   });
+
 });
