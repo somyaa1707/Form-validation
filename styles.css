@@ -1,77 +1,57 @@
-/* Center form vertically & horizontally */
-html, body {
-  height: 100%;
-  margin: 0;
+body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 40px;
 }
 
-.form-container {
+.container {
+  width: 400px;
+  margin: auto;
   background: white;
-  padding: 25px;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  width: 320px;
 }
 
-h2 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="text"], input[type="email"], input[type="password"] {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
   box-sizing: border-box;
 }
 
+.password-field {
+  display: flex;
+  gap: 10px;
+}
+
 button {
-  width: 100%;
-  padding: 10px;
-  font-weight: bold;
-  background-color: #007bff;
-  border: none;
+  padding: 10px 15px;
+  background-color: #007BFF;
   color: white;
+  border: none;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
 }
 
-button:hover {
-  background-color: #0056b3;
+button.toggle-password {
+  background-color: #6c757d;
 }
 
-#messageBox {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 5px;
-  display: none;
-  font-weight: bold;
+#message-box {
+  margin-bottom: 20px;
 }
 
-.error {
+.error-message {
   background-color: #f8d7da;
-  color: #842029;
-  border: 1px solid #f5c2c7;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #f5c6cb;
 }
 
-.success {
-  background-color: #d1e7dd;
-  color: #0f5132;
-  border: 1px solid #badbcc;
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #c3e6cb;
 }
