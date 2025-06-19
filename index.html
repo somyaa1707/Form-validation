@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Form Validation</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-  <div class="form-container">
-    <form id="userForm" novalidate>
-      <h2>User Registration</h2>
-      <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required />
+  <div class="container">
+    <h2>Registration Form</h2>
+    <div id="message-box"></div>
+
+    <form id="registration-form">
+      <label>Full Name *</label>
+      <input type="text" id="fullname" required>
+
+      <label>Email *</label>
+      <input type="email" id="email" required>
+
+      <label>Phone Number *</label>
+      <input type="text" id="phone" maxlength="10" required>
+
+      <label>Password *</label>
+      <div class="password-field">
+        <input type="password" id="password" required>
+        <button type="button" class="toggle-password">Show</button>
       </div>
 
-      <div class="form-group">
-        <label for="phone">Phone Number *</label>
-        <input type="text" id="phone" name="phone" maxlength="10" required />
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password *</label>
-        <input type="password" id="password" name="password" required />
-        <input type="checkbox" id="togglePassword" /> <label for="togglePassword">Show Password</label>
-      </div>
+      <label>Confirm Password *</label>
+      <input type="password" id="confirm-password" required>
 
       <button type="submit">Submit</button>
-      <div id="messageBox"></div>
     </form>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
